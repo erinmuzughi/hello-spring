@@ -36,7 +36,7 @@ public class HelloController {
 
     @GetMapping ("form")
     public String helloForm() {
-        return
+        String html =
                 "<html>" +
                         "<body>" +
                         "<form action = '/hello' method = 'post'>" + //submit a request to /hello because we already have a handler method for this
@@ -45,6 +45,7 @@ public class HelloController {
                         "</form>" +
                         "</body>" +
                         "</html>";
+        return html;
     }
 
 }
