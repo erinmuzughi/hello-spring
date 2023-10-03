@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
-@RequestMapping("hello")
 public class HelloController {
 
 //    @GetMapping("hello")
@@ -15,19 +13,22 @@ public class HelloController {
 //    }
     //this now lives at /hello/goodbye because we added @RequestMapping above the class
     @GetMapping("goodbye")
+    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
 
     //handles request of the form /hello?name=[name]
 //    @GetMapping("hello") // replaced with RequestMapping to allow both GET and POST
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
     //handles requests of the form /hello/[name]
-    @GetMapping("{name}")
+    @GetMapping("hello/{name}")
+    @ResponseBody
     public String helloAgain(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
@@ -36,16 +37,7 @@ public class HelloController {
 
     @GetMapping ("form")
     public String helloForm() {
-        String html =
-                "<html>" +
-                        "<body>" +
-                        "<form action = '/hello' method = 'post'>" + //submit a request to /hello because we already have a handler method for this
-                        "<input type = 'text' name = 'name' />" +
-                        "<input type = 'submit' value = 'Greet Me!' />" +
-                        "</form>" +
-                        "</body>" +
-                        "</html>";
-        return html;
+        return "form";
     }
 
 }
