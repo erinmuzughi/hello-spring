@@ -1,36 +1,25 @@
 package org.launchcode.hellospring;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloController {
 
-//    @GetMapping("hello")
-//    @ResponseBody
-//    public String hello() {
-//        return "Hello, Spring!";
-//    }
-    //this now lives at /hello/goodbye because we added @RequestMapping above the class
-    @GetMapping("goodbye")
-    @ResponseBody
-    public String goodbye() {
-        return "Goodbye, Spring!";
-    }
-
-    //handles request of the form /hello?name=[name]
-//    @GetMapping("hello") // replaced with RequestMapping to allow both GET and POST
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
-    @ResponseBody
-    public String helloWithQueryParam(@RequestParam String name) {
-        return "Hello, " + name + "!";
+    public String hello(@RequestParam String name, Model model) {
+        String greeting = "Hello, " + name + "!";
+        model.addAttribute("greeting", greeting);
+        return "hello";
     }
 
     //handles requests of the form /hello/[name]
     @GetMapping("hello/{name}")
-    @ResponseBody
-    public String helloAgain(@PathVariable String name) {
-        return "Hello, " + name + "!";
+    public String helloAgain(@PathVariable String name, Model model) {
+        String greeting = "Hello, " + name + "!";
+        model.addAttribute("greeting", greeting);
+        return "hello";
     }
 
     //now lives at /hello/form
